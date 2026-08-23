@@ -34,7 +34,7 @@ print("b="+b)
 
 print("c="+c)
 
-print("d="+a)
+print("d="+d)
 
 
 print()
@@ -234,3 +234,6 @@ except Exception as e:
 
 
 print("")
+
+
+output.close()

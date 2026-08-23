@@ -2,14 +2,14 @@
 'use strict';
 
 const express = require('express');
-const { connect } = require('../../shared/db');
-const { httpLogger, logEndpoint } = require('../../shared/logger');
-const { PORT_COSTS } = require('../../shared/env');
-const { validateAddCost, validateReportQuery } = require('../../shared/validation');
-const Cost   = require('../../shared/models/costs');
-const User   = require('../../shared/models/users');
-const Report = require('../../shared/models/reports');
-const { CATEGORIES } = require('../../shared/models/costs');
+const { connect } = require('./db');
+const { httpLogger, logEndpoint } = require('./logger');
+const { PORT_COSTS } = require('./env');
+const { validateAddCost, validateReportQuery } = require('./validation');
+const Cost   = require('./models/cost');
+const User   = require('./models/user');
+const Report = require('./models/report');
+const { CATEGORIES } = require('./models/cost');
 
 // express app; httpLogger records every request that comes in
 const app = express();

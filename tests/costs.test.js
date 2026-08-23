@@ -8,8 +8,8 @@ process.env.MONGO_URI    = 'mongodb://localhost/test';
 process.env.TEAM_MEMBERS = '[]';
 
 const app  = require('../services/costs/index');
-const User = require('../shared/models/users');
-const Cost = require('../shared/models/costs');
+const User = require('../services/costs/models/user');
+const Cost = require('../services/costs/models/cost');
 
 beforeAll(async () => { await startDb(); }, 300000);
 afterAll(async () => { await stopDb(); });

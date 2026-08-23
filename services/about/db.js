@@ -1,4 +1,5 @@
-// shared mongoose connection — each service calls connect() once on boot
+// local mongoose connection helper — this service calls connect() once on boot
+// (about has no domain data of its own, but still connects so its requests get logged)
 'use strict';
 
 const mongoose = require('mongoose');

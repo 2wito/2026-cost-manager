@@ -20,18 +20,30 @@ Express.js, Mongoose, and Pino.
 
 ## Repository layout
 
+Each of the 4 microservices is fully self-contained — its own `models/`
+folder, its own Mongoose connection, logger, env loading and validation, and
+its own `package.json` listing its real dependencies directly. Nothing is
+shared between them at the code level; they only meet at the database.
+
 ```
 cost-manager/
-├── shared/                # Mongoose models, logger, config (consumed by services)
-│   ├── models/            # users.js, costs.js, logs.js, reports.js
-│   ├── logger.js          # Pino → MongoDB transport + Express middleware
-│   ├── db.js              # Mongoose connection helper
-│   └── env.js             # dotenv loading + validation
 ├── services/
-│   ├── users/             # Process 1 — user-related endpoints
-│   ├── costs/             # Process 2 — cost-related endpoints + report
-│   ├── logs/              # Process 3 — log reader (admin)
-│   └── about/             # Process 4 — developers info
+│   ├── users/              # Process 1 — user-related endpoints
+│   │   ├── models/         # user.js, cost.js (read-only, for totals), log.js
+│   │   ├── db.js / logger.js / env.js / validation.js
+│   │   └── index.js
+│   ├── costs/               # Process 2 — cost-related endpoints + report
+│   │   ├── models/         # cost.js, user.js (read-only, for userid checks), report.js, log.js
+│   │   ├── db.js / logger.js / env.js / validation.js
+│   │   └── index.js
+│   ├── logs/                # Process 3 — log reader (admin)
+│   │   ├── models/log.js
+│   │   ├── db.js / logger.js / env.js
+│   │   └── index.js
+│   └── about/                # Process 4 — developers info
+│       ├── models/log.js   # about has no domain data, but still logs its own requests
+│       ├── db.js / logger.js / env.js
+│       └── index.js
 ├── tests/                 # Unit / integration tests for every endpoint
 ├── scripts/seed.js        # inserts the single demo user
 ├── .env.example

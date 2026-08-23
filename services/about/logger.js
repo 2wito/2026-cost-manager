@@ -2,7 +2,7 @@
 'use strict';
 
 const pino = require('pino');
-const Log  = require('./models/logs');
+const Log  = require('./models/log');
 
 // Pino hands every log line to write() as a JSON string; we turn that back
 // into an object and drop it into the logs collection.

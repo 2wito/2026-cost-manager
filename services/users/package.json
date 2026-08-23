@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "dependencies": {
     "express": "^4.19.2",
-    "shared": "*"
+    "mongoose": "^8.4.0",
+    "pino": "^9.2.0",
+    "dotenv": "^16.4.5"
   }
 }

@@ -1,4 +1,4 @@
-// cached monthly reports — see getReport() in the costs service for the why
+// cached monthly reports — see getReport() in index.js for the why
 'use strict';
 
 const mongoose = require('mongoose');

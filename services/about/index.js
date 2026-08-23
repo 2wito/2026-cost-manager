@@ -2,9 +2,9 @@
 'use strict';
 
 const express = require('express');
-const { connect } = require('../../shared/db');
-const { httpLogger, logEndpoint } = require('../../shared/logger');
-const { PORT_ABOUT, TEAM_MEMBERS } = require('../../shared/env');
+const { connect } = require('./db');
+const { httpLogger, logEndpoint } = require('./logger');
+const { PORT_ABOUT, TEAM_MEMBERS } = require('./env');
 
 // express app; httpLogger records every request that comes in
 const app = express();

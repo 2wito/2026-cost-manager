@@ -8,7 +8,7 @@ process.env.MONGO_URI    = 'mongodb://localhost/test';
 process.env.TEAM_MEMBERS = '[]';
 
 const app = require('../services/logs/index');
-const Log = require('../shared/models/logs');
+const Log = require('../services/logs/models/log');
 
 beforeAll(async () => { await startDb(); }, 300000);
 afterAll(async () => { await stopDb(); });

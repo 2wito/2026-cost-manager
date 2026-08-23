@@ -1,9 +1,9 @@
 // puts a single demo user in the database
 'use strict';
 
-require('../shared/env');
-const { connect, disconnect } = require('../shared/db');
-const User = require('../shared/models/users');
+require('../services/users/env');
+const { connect, disconnect } = require('../services/users/db');
+const User = require('../services/users/models/user');
 
 // the schema needs a birthday even though we only really care about the rest
 const SEED_USER = {
