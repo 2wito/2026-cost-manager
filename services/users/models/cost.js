@@ -5,7 +5,7 @@
 const mongoose = require('mongoose');
 
 // the categories a cost can fall under
-const CATEGORIES = ['food', 'health', 'housing', 'sports', 'education'];
+const CATEGORIES = ['food', 'health', 'housing', 'sport', 'education'];
 
 const costSchema = new mongoose.Schema({
   description: { type: String,                            required: true },

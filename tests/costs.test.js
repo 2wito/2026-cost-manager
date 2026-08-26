@@ -96,7 +96,7 @@ describe('GET /api/report', () => {
 
     // all five categories present, each as an empty array
     const cats = res.body.costs.map((obj) => Object.keys(obj)[0]);
-    expect(cats).toEqual(expect.arrayContaining(['food', 'health', 'housing', 'sports', 'education']));
+    expect(cats).toEqual(expect.arrayContaining(['food', 'health', 'housing', 'sport', 'education']));
     for (const obj of res.body.costs) {
       const items = Object.values(obj)[0];
       expect(Array.isArray(items)).toBe(true);

@@ -1,0 +1,152 @@
+{
+  "info": {
+    "_postman_id": "f00d295f-9281-4a1e-a307-dab5b75e34cc",
+    "name": "Cost Manager",
+    "description": "4 independent microservices: users, costs, logs, about. Switch the active Environment (top-right dropdown) to point every {{...Base}} variable at either localhost or the live Render deployment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Add user",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 123123,\n  \"first_name\": \"mosh\",\n  \"last_name\": \"israeli\",\n  \"birthday\": \"1990-01-01\"\n}"
+            },
+            "url": { "raw": "{{usersBase}}/api/add", "host": ["{{usersBase}}"], "path": ["api", "add"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('status is 201 or 409 (already exists)', () => {",
+                  "  pm.expect([201, 409]).to.include(pm.response.code);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get all users",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{usersBase}}/api/users", "host": ["{{usersBase}}"], "path": ["api", "users"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": { "exec": [ "pm.test('status is 200', () => pm.response.to.have.status(200));" ] }
+            }
+          ]
+        },
+        {
+          "name": "Get user by id (with total)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{usersBase}}/api/users/123123", "host": ["{{usersBase}}"], "path": ["api", "users", "123123"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": { "exec": [ "pm.test('status is 200', () => pm.response.to.have.status(200));" ] }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Costs",
+      "item": [
+        {
+          "name": "Add cost",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userid\": 123123,\n  \"description\": \"milk\",\n  \"category\": \"food\",\n  \"sum\": 8\n}"
+            },
+            "url": { "raw": "{{costsBase}}/api/add", "host": ["{{costsBase}}"], "path": ["api", "add"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('status is 201 or 404 (user must exist first)', () => {",
+                  "  pm.expect([201, 404]).to.include(pm.response.code);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get monthly report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{costsBase}}/api/report?id=123123&year=2026&month=8",
+              "host": ["{{costsBase}}"],
+              "path": ["api", "report"],
+              "query": [
+                { "key": "id", "value": "123123" },
+                { "key": "year", "value": "2026" },
+                { "key": "month", "value": "8" }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": { "exec": [ "pm.test('status is 200', () => pm.response.to.have.status(200));" ] }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Logs",
+      "item": [
+        {
+          "name": "Get all logs",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{logsBase}}/api/logs", "host": ["{{logsBase}}"], "path": ["api", "logs"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": { "exec": [ "pm.test('status is 200', () => pm.response.to.have.status(200));" ] }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "About",
+      "item": [
+        {
+          "name": "Get developers info",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{aboutBase}}/api/about", "host": ["{{aboutBase}}"], "path": ["api", "about"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": { "exec": [ "pm.test('status is 200', () => pm.response.to.have.status(200));" ] }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

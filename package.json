@@ -17,7 +17,8 @@
     "start": "concurrently -n users,costs,logs,about -c blue,green,yellow,magenta \"npm:dev:users\" \"npm:dev:costs\" \"npm:dev:logs\" \"npm:dev:about\"",
     "build": "npm install",
     "test": "jest --runInBand",
-    "seed": "node scripts/seed.js"
+    "seed": "node scripts/seed.js",
+    "reset-db": "node scripts/reset-db.js"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
