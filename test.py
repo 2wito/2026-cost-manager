@@ -17,10 +17,10 @@ filename = input("filename=")
 
 
 
-a = "https://cost-manager-logs-cu15.onrender.com"
-b = "https://cost-manager-users-ufra.onrender.com"
-c = "https://cost-manager-cost.onrender.com"
-d = "https://cost-manager-about-o62e.onrender.com"
+a = "https://two026-cost-manager-logs.onrender.com"
+b = "https://two026-cost-manager-users.onrender.com"
+c = "https://two026-cost-manager-costs.onrender.com"
+d = "https://two026-cost-manager-about.onrender.com"
 
 
 output = open(filename,"w")
