@@ -42,6 +42,8 @@ app.post('/api/add', async (req, res, next) => {
       birthday:   user.birthday,
     });
   } catch (err) {
+    // any DB failure we didn't already handle falls through to the 500 handler below
+
     next(err);
   }
 });
@@ -50,6 +52,7 @@ app.post('/api/add', async (req, res, next) => {
 app.get('/api/users', async (req, res, next) => {
   logEndpoint('list_users');
   try {
+    // strip mongo internals so the response matches the spec exactly
     const users = await User.find({}, { _id: 0, __v: 0 });
     res.json(users);
   } catch (err) {
@@ -88,6 +91,8 @@ app.get('/api/users/:id', async (req, res, next) => {
       total,
     });
   } catch (err) {
+    // any DB failure we didn't already handle falls through to the 500 handler below
+
     next(err);
   }
 });

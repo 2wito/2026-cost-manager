@@ -64,6 +64,7 @@ const validateReportQuery = (query) => {
   if (!year || !Number.isFinite(yr)) {
     return { ok: false, id: 'validation_error', message: 'year must be a number' };
   }
+  // month additionally has to fall within an actual calendar range
   if (!month || !Number.isFinite(mo) || mo < 1 || mo > 12) {
     return { ok: false, id: 'validation_error', message: 'month must be a number between 1 and 12' };
   }

@@ -71,6 +71,7 @@ describe('POST /api/add (cost)', () => {
       userid: 123123, description: 'x', category: 'food', sum: 5,
       date: '2000-01-01',
     });
+    // this is the specific error id the past-date guard returns, not the generic validation one
     expect(res.status).toBe(400);
     expect(res.body.id).toBe('past_date_not_allowed');
   });
@@ -110,6 +111,7 @@ describe('GET /api/report', () => {
       userid: 123123, description: 'choco', category: 'food', sum: 12,
       date: new Date(),
     });
+    // query for whatever month "now" actually falls in, so this test works any day it runs
     const now = new Date();
     const res = await request(app).get(
       `/api/report?id=123123&year=${now.getFullYear()}&month=${now.getMonth() + 1}`

@@ -6,6 +6,7 @@ const { connect } = require('./db');
 const { httpLogger, logEndpoint } = require('./logger');
 const { PORT_COSTS } = require('./env');
 const { validateAddCost, validateReportQuery } = require('./validation');
+// the models this service owns, plus a read-only User for the userid check
 const Cost   = require('./models/cost');
 const User   = require('./models/user');
 const Report = require('./models/report');
@@ -49,9 +50,12 @@ app.post('/api/add', async (req, res, next) => {
       category:    cost.category,
       userid:      cost.userid,
       sum:         cost.sum,
+      // the actual stored date, not the raw input — in case it defaulted
       date:        cost.date,
     });
   } catch (err) {
+    // any DB/validation failure we didn't already handle falls through to the 500 handler below
+
     next(err);
   }
 });
@@ -127,6 +131,7 @@ const computeReport = async (userId, year, month) => {
         category:    1,
         sum:         1,
         description: 1,
+        // the report only wants the day-of-month, not the full timestamp
         day: { $dayOfMonth: '$date' },
       },
     },

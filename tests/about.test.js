@@ -40,6 +40,7 @@ describe('GET /api/about', () => {
     const res = await request(app).get('/api/about');
     expect(res.body[0].first_name).toBe('Itay');
     expect(res.body[0].last_name).toBe('Twito');
+    // index 1 and 2 are the other two team members, in the same order as TEAM_MEMBERS
     expect(res.body[1].first_name).toBe('Yuval');
     expect(res.body[1].last_name).toBe('Sucar');
     expect(res.body[2].first_name).toBe('Noa');

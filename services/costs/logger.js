@@ -45,6 +45,7 @@ const httpLogger = (req, res, next) => {
       method:     req.method,
       url:        req.originalUrl,
       status:     res.statusCode,
+      // how long the request took, in ms
       durationMs: Date.now() - start,
     });
   });
