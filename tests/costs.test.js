@@ -153,4 +153,21 @@ describe('GET /api/report', () => {
     expect(res.status).toBe(400);
     expect(res.body.id).toBe('validation_error');
   });
+
+  // a well-formed id that just isn't in the users collection
+  test('returns 404 when userid does not exist', async () => {
+    const res = await request(app).get('/api/report?id=999999&year=2026&month=5');
+    expect(res.status).toBe(404);
+    expect(res.body.id).toBe('not_found');
+    expect(res.body.message).toBeDefined();
+  });
+
+  // future years/months are explicitly allowed — costs can never be added in
+  // the past, so a future report is a normal, valid (if currently empty) query
+  test('accepts a future year without error', async () => {
+    await seedUser();
+    const res = await request(app).get('/api/report?id=123123&year=2027&month=1');
+    expect(res.status).toBe(200);
+    expect(res.body.year).toBe(2027);
+  });
 });

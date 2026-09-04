@@ -72,6 +72,12 @@ app.get('/api/report', async (req, res, next) => {
   const { userId, year, month } = validation;
 
   try {
+    // a report for a nonexistent user isn't "empty", it's a 404
+    const userExists = await User.exists({ id: userId });
+    if (!userExists) {
+      return res.status(404).json({ id: 'not_found', message: 'user not found' });
+    }
+
     const payload = await getReport(userId, year, month);
     res.json(payload);
   } catch (err) {
