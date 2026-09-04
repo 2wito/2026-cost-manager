@@ -84,6 +84,16 @@ describe('POST /api/add (cost)', () => {
     });
     expect(res.status).toBe(400);
   });
+
+  // userid left out entirely, not just nonexistent
+  test('returns 400 when userid is missing', async () => {
+    const res = await request(app).post('/api/add').send({
+      description: 'x', category: 'food', sum: 5,
+    });
+    expect(res.status).toBe(400);
+    expect(res.body.id).toBe('validation_error');
+    expect(res.body.message).toBeDefined();
+  });
 });
 
 describe('GET /api/report', () => {

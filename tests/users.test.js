@@ -69,6 +69,16 @@ describe('POST /api/add (user)', () => {
     expect(res.status).toBe(400);
     expect(res.body.id).toBe('validation_error');
   });
+
+  // birthday left out entirely, not just malformed
+  test('returns 400 when birthday is missing', async () => {
+    const res = await request(app).post('/api/add').send({
+      id: 9998, first_name: 'test', last_name: 'user',
+    });
+    expect(res.status).toBe(400);
+    expect(res.body.id).toBe('validation_error');
+    expect(res.body.message).toBeDefined();
+  });
 });
 
 describe('GET /api/users', () => {
